@@ -1,0 +1,32 @@
+CC = gcc
+
+CFLAGS = -Wall -c
+
+LDFLAGS = -Wall
+
+SRC_SCORES = task1.c
+SRC_TEMP = task2.c
+
+OBJ_SCORES = $(SRC_SCORES:.c=.o)
+OBJ_TEMP = $(SRC_TEMP:.c=.o)
+OBJECTS = $(OBJ_SCORES) $(OBJ_TEMP)
+
+TARGETS = scores temp_convert
+
+all: $(TARGETS)
+
+scores: $(OBJ_SCORES)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+temp_convert: $(OBJ_TEMP)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+
+# Clean rule: removes all executables and object files
+clean:
+	rm -f $(TARGETS) $(OBJECTS)
+
+.PHONY: all clean
+
